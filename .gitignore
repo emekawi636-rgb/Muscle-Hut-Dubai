@@ -1,0 +1,13 @@
+# Dynamically generated local scripts
+server.js
+
+# Dependencies
+node_modules/
+
+# Local configuration & environment variables
+.env
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db

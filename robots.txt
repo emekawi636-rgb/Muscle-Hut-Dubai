@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /my-account/
+Disallow: /cart/
+
+Sitemap: https://muscle-hut.ae/sitemap.xml
