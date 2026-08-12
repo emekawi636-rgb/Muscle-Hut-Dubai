@@ -20,63 +20,44 @@
 
   var preloader = (function () {
     var el = document.querySelector("[data-preloader]");
-    if (!el) return { done: function (cb) { cb(); } };
-    var bar = el.querySelector("[data-preloader-bar]");
-    var count = el.querySelector("[data-preloader-count]");
-    var progress = 0;
+    if (!el) return { start: function () {} };
     var done = false;
 
-    function render() {
-      if (count) count.textContent = String(Math.floor(progress)).padStart(2, "0");
-      if (bar) bar.style.width = progress + "%";
+    function startHero() {
+      if (!hero) return;
+      hero.classList.add("is-loaded");
+      hero.querySelectorAll(".hero .hl").forEach(function (h, i) {
+        setTimeout(function () { h.classList.add("is-in"); }, i * 150);
+      });
+    }
+
+    function unlock() {
+      body.classList.remove("is-locked");
     }
 
     function finish() {
       if (done) return;
       done = true;
       if (REDUCED) {
-        el.classList.add("is-hidden");
-        body.classList.remove("is-locked");
-        hero.classList.add("is-loaded");
-        hero.querySelectorAll(".hero .hl").forEach(function (h, i) {
-          setTimeout(function () { h.classList.add("is-in"); }, i * 120);
-        });
+        el.classList.add("is-leaving", "is-hidden");
+        startHero();
+        unlock();
         return;
       }
-      progress = 100;
-      render();
+      el.classList.add("is-leaving");
+      startHero();
       setTimeout(function () {
         el.classList.add("is-hidden");
-        body.classList.remove("is-locked");
-        hero.classList.add("is-loaded");
-        hero.querySelectorAll(".hero .hl").forEach(function (h, i) {
-          setTimeout(function () { h.classList.add("is-in"); }, i * 150);
-        });
-      }, 420);
-    }
-
-    function start() {
-      if (REDUCED) {
-        render();
-        finish();
-        return;
-      }
-      var tick = function () {
-        if (done) return;
-        progress += Math.random() * 14 + 4;
-        if (progress >= 96) progress = 96;
-        render();
-        setTimeout(tick, 160 + Math.random() * 140);
-      };
-      tick();
+        unlock();
+      }, 550);
     }
 
     window.addEventListener("load", function () {
-      setTimeout(finish, 300);
+      setTimeout(finish, 800);
     });
     setTimeout(finish, 5200);
 
-    return { start: start };
+    return { start: function () {} };
   })();
 
   preloader.start();
