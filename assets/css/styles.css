@@ -929,9 +929,14 @@ button {
   min-height: 720px;
   overflow: hidden;
   font-family: var(--font-body);
+  background-image: url("C:/Users/ehabm/Desktop/MuscleHut/491442314_17924662542061012_7405633943682448856_n.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .member__media {
+  display: none;
   position: absolute;
   inset: 0;
   will-change: transform;
